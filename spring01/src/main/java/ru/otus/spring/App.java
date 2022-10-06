@@ -2,12 +2,12 @@ package ru.otus.spring;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.spring.domain.QuestionList;
+import ru.otus.spring.dao.QuestionDao;
+import ru.otus.spring.dao.QuestionDaoResources;
 import ru.otus.spring.services.QuestionService;
 import ru.otus.spring.services.QuestionServiceImpl;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class App {
 
@@ -18,17 +18,10 @@ public class App {
     }
 
     private void execute() throws IOException {
-
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/spring-context.xml");
         QuestionService questionService = applicationContext.getBean(QuestionServiceImpl.class);
-
-        Iterator<QuestionList> questionListIterator = questionService.iterateQuestions();
-        while(questionListIterator.hasNext()) {
-            var questionList = questionListIterator.next();
-            System.out.println(questionList.getId() + ". " + questionList.getQuestion());
-            System.out.println("Answwers: " + questionList.getAnswers());
-            System.out.println();
-        }
+        QuestionDao questionDao = applicationContext.getBean(QuestionDaoResources.class);
+        questionService.outputQuestions(questionService.processQuestions(questionDao.readQuestions()));
     }
 
     public static void main(String[] args) throws IOException {

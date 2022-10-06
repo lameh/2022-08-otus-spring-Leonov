@@ -1,11 +1,9 @@
 package ru.otus.spring.dao;
 
-import ru.otus.spring.domain.QuestionList;
-
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public interface QuestionDao {
 
-    Iterator<QuestionList> iterateQuestions() throws IOException;
+    ArrayList<String > readQuestions() throws IOException;
 }

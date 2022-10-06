@@ -1,18 +1,14 @@
 package ru.otus.spring.dao;
 
-import ru.otus.spring.domain.QuestionList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 
 public class QuestionDaoResources implements QuestionDao {
 
-    private String filename;
+    private final String filename;
 
     public QuestionDaoResources(String filename) {
         this.filename = filename;
@@ -23,32 +19,20 @@ public class QuestionDaoResources implements QuestionDao {
     }
 
     @Override
-    public Iterator<QuestionList> iterateQuestions() throws IOException {
+    public ArrayList<String> readQuestions() throws IOException {
 
-        ArrayList<QuestionList> questions = new ArrayList<>();
+        var strings = new ArrayList<String>();
 
-        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream("question_list.csv")) {
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            var line = bufferedReader.readLine();
-
-            while (line != null) {
-                var tokens = new StringTokenizer(line, ",");
-                int id;
-                try {
-                    id = Integer.parseInt(tokens.nextToken());
-                } catch (NumberFormatException ex) {
-                    throw new IOException(ex);
-                }
-                var question = tokens.nextToken();
-                var answers = "";
-                while (tokens.hasMoreTokens()) {
-                    answers += tokens.nextToken() + ", ";
-                }
-                questions.add(new QuestionList(id, question, answers));
+        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream(getFilename())) {
+            var bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = bufferedReader.readLine();
+            while(line != null) {
+                strings.add(line);
                 line = bufferedReader.readLine();
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        return questions.iterator();
+        return strings;
     }
 }
