@@ -25,7 +25,7 @@ public class TestingServiceImpl implements TestingService{
         for (QuestionEntity question:questions) {
             ioService.outputString(question.getQuestionText());
             for (int i = 0; i < question.getAnswers().size(); i++) {
-                String answ = question.getAnswers().get(i).getText();
+                java.lang.String answ = question.getAnswers().get(i).getText();
                 ioService.outputString((i+1) + ". " + answ);
             }
             int respNum = Integer.parseInt(ioService.inputString());

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 
 public interface QuestionDao {
 
-    ArrayList<String > readQuestions() throws IOException;
+    ArrayList<String> readQuestions() throws IOException;
 }

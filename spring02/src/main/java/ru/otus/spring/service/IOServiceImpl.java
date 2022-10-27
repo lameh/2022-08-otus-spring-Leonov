@@ -1,6 +1,6 @@
 package ru.otus.spring.service;
 
-import ru.otus.spring.exception.IOServiceException;
+import ru.otus.spring.exception.MyTestingException;
 
 import java.io.*;
 
@@ -24,7 +24,7 @@ public class IOServiceImpl implements IOService {
         try {
             return bf.readLine();
         } catch (IOException e) {
-            throw new IOServiceException("Can't read input stream", e);
+            throw new MyTestingException("Can't read input stream", e);
         }
     }
 }

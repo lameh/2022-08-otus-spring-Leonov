@@ -4,25 +4,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.otus.spring.domain.Answer;
+import ru.otus.spring.App;
 import ru.otus.spring.domain.QuestionEntity;
+import ru.otus.spring.service.QuestionEntityServiceImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-@SpringBootTest(classes = QuestionEntityDaoImpl.class)
-public class QuestionEntityDaoImplTest {
+@SpringBootTest(classes = App.class)
+public class QuestionEntityServiceImplTest {
 
     @Autowired
-    private QuestionEntityDao questionEntityDao;
+    private QuestionEntityServiceImpl qesi;
     @Value("${questions.filename}")
-    String filename;
+    java.lang.String filename;
 
     @Test
     void getQuestions() {
-        List<QuestionEntity> questions = questionEntityDao.getQuestions();
+        List<QuestionEntity> questions = qesi.getQuestion();
         assertEquals(5, questions.size());
 
         QuestionEntity question = questions.get(3);
