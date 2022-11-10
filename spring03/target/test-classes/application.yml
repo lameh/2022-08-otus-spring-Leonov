@@ -1,9 +1,0 @@
-spring:
-  messages:
-    basename: i18n/message
-    fallback-to-system-locale: false
-
-app:
-  current-locale: ru
-  csv-file-path:
-    question: questions_${app.current-locale}.csv
