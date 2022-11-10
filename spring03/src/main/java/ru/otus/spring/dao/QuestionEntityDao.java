@@ -1,8 +1,8 @@
 package ru.otus.spring.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface QuestionEntityDao {
 
-    ArrayList<String> readQuestions();
+    List<String> readQuestions();
 }

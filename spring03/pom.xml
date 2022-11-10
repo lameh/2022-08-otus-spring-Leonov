@@ -11,7 +11,7 @@
 	<groupId>ru.ghost</groupId>
 	<artifactId>homework-1-3-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>homework-1-3-spring</name>
+	<name>spring03</name>
 	<description>My third homework</description>
 	<properties>
 		<java.version>11</java.version>

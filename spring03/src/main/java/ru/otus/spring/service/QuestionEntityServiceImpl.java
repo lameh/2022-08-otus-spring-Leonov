@@ -16,8 +16,11 @@ public class QuestionEntityServiceImpl implements QuestionEntityService {
 
     private final QuestionEntityDao qed;
 
-    public QuestionEntityServiceImpl(QuestionEntityDao qed) {
+    private final LocalizationService localizationService;
+
+    public QuestionEntityServiceImpl(QuestionEntityDao qed, LocalizationService localizationService) {
         this.qed = qed;
+        this.localizationService = localizationService;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class QuestionEntityServiceImpl implements QuestionEntityService {
             try {
                 num = Integer.parseInt(str[0]);
             } catch (NumberFormatException e) {
-                throw new MyTestingException("Number of question must be integer!", e);
+                throw new MyTestingException(localizationService.makeLocalized("number.questions"), e);
             }
             var text = str[1];
             var question = new Question(num, text);
@@ -39,7 +42,7 @@ public class QuestionEntityServiceImpl implements QuestionEntityService {
             try {
                 correctAnswerNum = Integer.parseInt(str[2]);
             } catch (NumberFormatException e) {
-                throw new MyTestingException("Number of correct question must be integer!", e);
+                throw new MyTestingException(localizationService.makeLocalized("number.answers"), e);
             }
             ArrayList<Answer> answ = new ArrayList<>();
             for (int i = 3; i < str.length; i++) {
