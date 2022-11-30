@@ -41,7 +41,7 @@ public class GenreDaoJdbc implements GenreDao{
 
     @Override
     public Genre getById(Long id) {
-        return npjdbc.queryForObject("select * from genre where id = :id", Map.of("id", id), ROW_MAPPER);
+        return npjdbc.queryForObject("select id, name from genre where id = :id", Map.of("id", id), ROW_MAPPER);
     }
 
     @Override

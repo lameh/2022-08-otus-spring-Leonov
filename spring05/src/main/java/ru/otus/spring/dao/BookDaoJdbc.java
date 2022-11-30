@@ -41,17 +41,21 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        String sql = "select b.id as book_id, b.name as book_name, a.id as author_id, a.name as author_name, " +
-                "g.id as genre_id, g.name as genre_name from book b " +
-                "left join author a on a.id = b.author_id left join genre g on g.id = b.genre_id";
+        String sql = "select b.id as book_id, b.name as book_name, " +
+                "a.id as author_id, a.name as author_name, " +
+                "g.id as genre_id, g.name as genre_name" +
+                " from book b left join author a on a.id = b.author_id" +
+                            " left join genre g on g.id = b.genre_id";
         return npjdbc.query(sql, ROW_MAPPER);
     }
 
     @Override
     public Book getById(Long id) {
-        String sql = "select b.id as book_id, b.name as book_name, a.id as author_id, a.name as author_name, " +
-                "g.id as genre_id, g.name as genre_name from book b " +
-                "left join author a on a.id = b.author_id left join genre g on g.id = b.genre_id where b.id = :id";
+        String sql = "select b.id as book_id, b.name as book_name, "+
+                "a.id as author_id, a.name as author_name, " +
+                "g.id as genre_id, g.name as genre_name" +
+                " from book b left join author a on a.id = b.author_id "+
+                            " left join genre g on g.id = b.genre_id where b.id = :id";
         return npjdbc.queryForObject(sql, Map.of("id", id), ROW_MAPPER);
     }
 

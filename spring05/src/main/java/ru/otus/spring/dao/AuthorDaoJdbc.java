@@ -42,7 +42,7 @@ public class AuthorDaoJdbc implements AuthorDao{
 
     @Override
     public Author getById(Long id) {
-        return npjdbc.queryForObject("select * from author where id = :id", Map.of("id", id), ROW_MAPPER);
+        return npjdbc.queryForObject("select id, name from author where id = :id", Map.of("id", id), ROW_MAPPER);
     }
 
     @Override
