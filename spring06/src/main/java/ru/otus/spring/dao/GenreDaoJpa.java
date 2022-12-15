@@ -1,14 +1,14 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class GenreDaoJpa implements GenreDao {
 
@@ -43,8 +43,9 @@ public class GenreDaoJpa implements GenreDao {
 
     @Override
     public int delete(Long id) {
-        var query = entityManager.createQuery("delete from Genre g where g.id = :id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
+        var genre = entityManager.find(Genre.class, id);
+        entityManager.remove(genre);
+        var res = entityManager.find(Genre.class, id);
+        return res == null ? 1 : 0;
     }
 }

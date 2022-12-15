@@ -25,7 +25,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Genre create(String name) {
         Genre genre = new Genre(null, name);
         checkIfNullOrEmpty(genre);

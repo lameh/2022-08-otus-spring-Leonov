@@ -25,7 +25,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Author create(String name) {
         Author author = new Author(null, name);
         checkIfNullOrEmpty(author);

@@ -1,14 +1,14 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Author;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class AuthorDaoJpa implements AuthorDao {
 
@@ -43,8 +43,9 @@ public class AuthorDaoJpa implements AuthorDao {
 
     @Override
     public int delete(Long id) {
-        var query = entityManager.createQuery("delete from Author a where a.id = :id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
+        var author = entityManager.find(Author.class, id);
+        entityManager.remove(author);
+        var res = entityManager.find(Author.class, id);
+        return res == null ? 1 : 0;
     }
 }

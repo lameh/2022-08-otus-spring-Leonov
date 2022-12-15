@@ -22,7 +22,7 @@ public class CommentaryServiceImpl implements CommentaryService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Commentary create(String text, Long bookId) {
         var book = service.findById(bookId);
         var commentary = new Commentary(null, text, book);

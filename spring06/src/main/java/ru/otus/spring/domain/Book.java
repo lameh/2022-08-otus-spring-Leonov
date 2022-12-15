@@ -3,10 +3,11 @@ package ru.otus.spring.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "book")
@@ -18,8 +19,19 @@ public class Book {
     private Long id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @ManyToOne(targetEntity = Author.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
     private Author author;
-    @ManyToOne(targetEntity = Genre.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id")
     private Genre genre;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private List<Commentary> commentary;
+
+    public Book(Long id, String name, Author author, Genre genre) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.genre = genre;
+    }
 }

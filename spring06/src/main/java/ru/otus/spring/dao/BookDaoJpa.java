@@ -1,16 +1,15 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Book;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class BookDaoJpa implements BookDao {
 
@@ -48,8 +47,9 @@ public class BookDaoJpa implements BookDao {
 
     @Override
     public int delete(Long id) {
-        Query query = entityManager.createQuery("delete from Book b where b.id = :id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
+        var book = entityManager.find(Book.class, id);
+        entityManager.remove(book);
+        var res = entityManager.find(Book.class, id);
+        return res == null ? 1 : 0;
     }
 }

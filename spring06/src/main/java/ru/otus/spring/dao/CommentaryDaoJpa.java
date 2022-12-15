@@ -1,16 +1,15 @@
 package ru.otus.spring.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.spring.domain.Commentary;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class CommentaryDaoJpa implements CommentaryDao {
 
@@ -48,8 +47,11 @@ public class CommentaryDaoJpa implements CommentaryDao {
 
     @Override
     public int delete(Long id) {
-        var query = entityManager.createQuery("delete from Commentary с where с.id = :id");
-        query.setParameter("id", id);
-        return query.executeUpdate();
+        var comment = entityManager.find(Commentary.class, id);
+        entityManager.remove(comment);
+        entityManager.flush();
+        entityManager.clear();
+        var res = entityManager.find(Commentary.class, id);
+        return res == null ? 1 : 0;
     }
 }

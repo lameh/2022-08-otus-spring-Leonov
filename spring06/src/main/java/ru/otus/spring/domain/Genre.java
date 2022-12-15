@@ -3,10 +3,11 @@ package ru.otus.spring.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +19,11 @@ public class Genre {
     private Long id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+    @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Book> book;
+
+    public Genre(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

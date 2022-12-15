@@ -6,9 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @Table(name = "commentary")
 @NamedEntityGraph(
@@ -28,7 +28,8 @@ public class Commentary {
     private Long id;
     @Column(name = "text", nullable = false)
     private String text;
-    @ManyToOne(targetEntity = Book.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
     private Book book;
 
     public Commentary(Long id, String text, Book book) {

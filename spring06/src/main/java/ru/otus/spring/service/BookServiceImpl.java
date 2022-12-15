@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Book create(String name, Long authorId, Long genreId) {
         var author = authorService.findById(authorId);
         var genre = genreService.findById(genreId);
