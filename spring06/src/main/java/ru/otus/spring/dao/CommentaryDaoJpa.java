@@ -7,7 +7,6 @@ import ru.otus.spring.domain.Commentary;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -40,9 +39,7 @@ public class CommentaryDaoJpa implements CommentaryDao {
 
     @Override
     public Commentary findById(Long id) {
-        Map<String, Object> properties = Map.of("javax.persistence.fetchgraph",
-                entityManager.getEntityGraph("Commentary.Book.Author.Genre"));
-        return entityManager.find(Commentary.class, id, properties);
+        return entityManager.find(Commentary.class, id);
     }
 
     @Override

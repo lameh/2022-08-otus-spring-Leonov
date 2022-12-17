@@ -7,7 +7,6 @@ import ru.otus.spring.domain.Book;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -41,8 +40,7 @@ public class BookDaoJpa implements BookDao {
 
     @Override
     public Book findById(Long id) {
-        Map<String, Object> properties = Map.of("javax.persistence.fetchgraph", entityManager.getEntityGraph("Book.Author.Genre"));
-        return entityManager.find(Book.class, id, properties);
+        return entityManager.find(Book.class, id);
     }
 
     @Override
