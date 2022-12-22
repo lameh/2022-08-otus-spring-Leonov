@@ -17,4 +17,6 @@ public interface CommentaryService {
     Commentary update(Long id, String text, Long bookId);
 
     int delete(Long id);
+
+    List<Commentary> findByBookId(Long id);
 }

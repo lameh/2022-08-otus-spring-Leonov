@@ -70,7 +70,7 @@ public class CommentaryDaoJpaTest {
     void shouldDeleteSpecifiedCommentary() {
         var commentary = entityManager.find(Commentary.class, COMMENTARY.getId());
         dao.delete(COMMENTARY.getId());
-        entityManager.detach(commentary);
+        entityManager.remove(commentary);
         commentary = entityManager.find(Commentary.class, COMMENTARY.getId());
         assertThat(commentary).isNull();
     }

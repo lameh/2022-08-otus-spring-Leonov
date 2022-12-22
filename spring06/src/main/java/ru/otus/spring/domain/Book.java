@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "book")
@@ -24,7 +25,7 @@ public class Book {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
     private Genre genre;
-    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Commentary> commentary;
 
     public Book(Long id, String name, Author author, Genre genre) {
@@ -32,5 +33,16 @@ public class Book {
         this.name = name;
         this.author = author;
         this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author=" + author.getName() +
+                ", genre=" + genre.getName() +
+                ", commentary=" + commentary.toString() +
+                '}';
     }
 }

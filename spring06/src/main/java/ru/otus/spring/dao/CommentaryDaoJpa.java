@@ -46,8 +46,6 @@ public class CommentaryDaoJpa implements CommentaryDao {
     public int delete(Long id) {
         var comment = entityManager.find(Commentary.class, id);
         entityManager.remove(comment);
-        entityManager.flush();
-        entityManager.clear();
         var res = entityManager.find(Commentary.class, id);
         return res == null ? 1 : 0;
     }

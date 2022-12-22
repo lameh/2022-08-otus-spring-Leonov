@@ -56,4 +56,10 @@ public class CommentaryServiceImpl implements CommentaryService {
     public int delete(Long id) {
         return dao.delete(id);
     }
+
+    @Override
+    public List<Commentary> findByBookId(Long id) {
+        var book = service.findById(id);
+        return book.getCommentary();
+    }
 }

@@ -3,12 +3,14 @@ package ru.otus.spring.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "commentary")
 public class Commentary {
@@ -26,5 +28,13 @@ public class Commentary {
         this.id = id;
         this.text = text;
         this.book = book;
+    }
+
+    @Override
+    public String toString() {
+        return "Commentary{" +
+                "id=" + id +
+                ", text='" + text +
+                '}';
     }
 }

@@ -49,4 +49,9 @@ public class CommentaryShell {
         var res = commentaryService.delete(id);
         return res == 1 ? "Commentary was deleted" : "Commentary was not deleted";
     }
+
+    @ShellMethod(value = "Get commentary by book_id", key = {"cgb", "commentary_getByBookId"})
+    public String findByBookId(@ShellOption Long id) {
+        return commentaryService.findByBookId(id).toString();
+    }
 }
