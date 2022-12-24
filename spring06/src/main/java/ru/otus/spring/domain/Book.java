@@ -1,6 +1,8 @@
 package ru.otus.spring.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +27,8 @@ public class Book {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
     private Genre genre;
-    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     private List<Commentary> commentary;
 
     public Book(Long id, String name, Author author, Genre genre) {
